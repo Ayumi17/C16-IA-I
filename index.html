@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tilt+Neon&display=swap" rel="stylesheet">  
+    <link rel="stylesheet" href="style.css">
+    <title>Inteligencia Artificial</title>
+</head>
+<body>
+<center>
+    <h1>Inteligencia Artificial</h1>
+    <hr>
+    <h3>Código de index.html</h3>
+    <textarea cols='80' rows='4' id="codigo">
+        <html>
+
+        <head>
+        <title>Mi Aplicación de Selfies</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+        <link href="style.css" rel="stylesheet">
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.26/webcam.js"></script>
+
+
+       </head>
+
+       <body>
+       <div class="container">
+            <center>
+            <h1>Aplicación de voz para tomar selfies
+                <img id="logo_img" src="selfie.png">
+            </h1>
+            <hr>
+            <h4 style="color:red;">Haz clic en permitir cuando aparezca la ventana emergente, después de dar una orden
+                de voz.</h4>
+
+            <div class="form-group">
+                <h3>Di "toma mi selfie"</h3>
+                <label>Tu salida de voz: </label>
+                <textarea class="form-control" id="textbox" readonly="true"></textarea>
+            </div>
+            <button class="btn btn-primary" onclick="start();">Iniciar</button>
+            <p>Haz clic en el botón Iniciar</p>
+
+
+
+            <label>Tu cámara: </label>
+            <div id="camera"></div>
+            <br>
+
+            <label>Tu selfie aparecerá aquí: </label>
+            <div id="result"></div>
+
+           </center>
+       </div>
+
+       <script src="script.js"></script>
+       </body>
+
+       </html>
+
+    </textarea><br>
+    <button type="button" id="copyClip" data-clipboard-target="#codigo">Copiar</button>
+    <script src="clipboard.min.js"></script>
+
+    <br><br>
+    <hr>
+    <h3>Código CSS</h3>
+    <textarea cols='80' rows='4' id="codigo2">
+        html {
+            height: 100%;
+            width: 100%;
+          }
+          #start-btn
+          {
+              width: 40%;
+          } 
+          #camera
+          {
+              width:360px;
+              height: 250px;
+              border:1px solid grey;
+          }
+          #logo_img
+          {
+              width: 150px;
+              border-radius: 100px;
+          }
+          #textbox
+          {
+              width: 300px;
+          }
+    </textarea><br>
+    <button type="button" id="bt1" class="bt1" data-clipboard-target="#codigo2">Copiar</button>
+    <script>
+    var clipboard2 = new Clipboard('.bt1');
+    </script>
+
+     <br><br>
+     <hr>
+     <h3>Código script.js</h3>
+     <textarea cols='80' rows='4' id="codigo3">
+        var SpeechRecognition = window.webkitSpeechRecognition;
+
+        var recognition = new SpeechRecognition();
+
+        var Textbox = document.getElementById("textbox"); 
+
+      function start()
+      {
+         Textbox.innerHTML = ""; 
+         recognition.start();
+      } 
+
+      recognition.onresult = function(event) {
+
+      console.log(event); 
+
+      var Content = event.results[0][0].transcript;
+
+      Textbox.innerHTML = Content;
+       console.log(Content);
+      if(Content =="Toma mi selfie")
+      {
+        console.log("tomando selfie --- ");
+        speak();
+      }
+      }
+
+
+      function speak(){
+      var synth = window.speechSynthesis;
+
+      speak_data = "Tomando tu Selfie en 5 segundos";
+
+      var utterThis = new SpeechSynthesisUtterance(speak_data);
+
+      synth.speak(utterThis);
+
+      Webcam.attach(camera);
+
+       setTimeout(function()
+     { 
+        take_selfie(); 
+        save();
+    }, 5000);
+ }
+
+
+   camera = document.getElementById("camera");
+   Webcam.set({
+    width:360,
+    height:250,
+    image_format : 'jpeg',
+    jpeg_quality:90
+  });
+    </textarea><br>
+    <button type="button" id="bt2" class="bt2" data-clipboard-target="#codigo3">Copiar</button>
+    <script>
+    var clipboard2 = new Clipboard('.bt2');
+    </script>
+    
+
+</center>
+    
+</body>
+</html>
